@@ -15,7 +15,6 @@ CREATE TABLE users (
 CREATE TABLE lifts (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(id) ON DELETE CASCADE,
-    gym VARCHAR(255),
     weight DECIMAL(6,2) NOT NULL,
     reps INT NOT NULL
 );
@@ -30,8 +29,6 @@ CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     user_id INT REFERENCES users(id) ON DELETE SET NULL,
-    country VARCHAR(100),
-    gym VARCHAR(255),
     text TEXT NOT NULL,
     images TEXT[], 
     posted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
