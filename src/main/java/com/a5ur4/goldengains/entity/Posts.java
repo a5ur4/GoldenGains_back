@@ -24,10 +24,10 @@ public class Posts {
     private Date created_at;
 
     @Column(name = "upvotes", nullable = false)
-    private int upvotes;
+    private Integer upvotes;
 
     @Column(name = "downvotes", nullable = false)
-    private int downvotes;
+    private Integer downvotes;
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -39,7 +39,7 @@ public class Posts {
 
     public Posts() {}
 
-    public Posts(String title, String content, String image, Date created_at, int upvotes, int downvotes, Users user, Categories category) {
+    public Posts(String title, String content, String image, Date created_at, Integer upvotes, Integer downvotes, Users user, Categories category) {
         this.title = title;
         this.content = content;
         this.image = image;
@@ -86,19 +86,19 @@ public class Posts {
         this.created_at = created_at;
     }
 
-    public int getUpvotes() {
+    public Integer getUpvotes() {
         return upvotes;
     }
 
-    public void setUpvotes(int upvotes) {
+    public void setUpvotes(Integer upvotes) {
         this.upvotes = upvotes;
     }
 
-    public int getDownvotes() {
+    public Integer getDownvotes() {
         return downvotes;
     }
 
-    public void setDownvotes(int downvotes) {
+    public void setDownvotes(Integer downvotes) {
         this.downvotes = downvotes;
     }
 

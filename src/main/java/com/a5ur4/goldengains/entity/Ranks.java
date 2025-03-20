@@ -10,7 +10,7 @@ public class Ranks {
     private Long id;
 
     @Column(nullable = false)
-    private Integer postion;
+    private Integer position;
 
     @OneToOne
     @JoinColumn(name = "lift_id", nullable = false)
@@ -22,8 +22,8 @@ public class Ranks {
 
     public Ranks() {}
 
-    public Ranks(Integer postion, Lifts lift, Users user) {
-        this.postion = postion;
+    public Ranks(Integer position, Lifts lift, Users user) {
+        this.position = position;
         this.lift = lift;
         this.user = user;
     }
@@ -32,12 +32,12 @@ public class Ranks {
         return id;
     }
 
-    public Integer getPostion() {
-        return postion;
+    public Integer getPosition() {
+        return position;
     }
 
-    public void setPostion(Integer postion) {
-        this.postion = postion;
+    public void setPosition(Integer position) {
+        this.position = position;
     }
 
     public Lifts getLift() {

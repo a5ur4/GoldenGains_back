@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RanksRepository extends JpaRepository<Ranks, Long> {
     Optional<Ranks> findById(Long id);
-    Optional<Ranks> findByName(String name);
+    Optional<Ranks> findByPosition(Integer position);
 
-    Boolean existsByName(String name);
+    Boolean existsByPosition(Integer position);
 
 }

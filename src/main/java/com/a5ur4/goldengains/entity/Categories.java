@@ -1,5 +1,7 @@
 package com.a5ur4.goldengains.entity;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -15,15 +17,24 @@ public class Categories {
     @Column(nullable = false)
     private String description;
 
+    @OneToMany
+    @JoinColumn(name = "post_id", nullable = false)
+    private List<Posts> posts;
+
     public Categories() {}
 
-    public Categories(String name, String description) {
+    public Categories(String name, String description, List<Posts> posts) {
         this.name = name;
         this.description = description;
+        this.posts = posts;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -40,5 +51,13 @@ public class Categories {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Posts> getPost() {
+        return posts;
+    }
+
+    public void setPost(List<Posts> posts) {
+        this.posts = posts;
     }
 }
