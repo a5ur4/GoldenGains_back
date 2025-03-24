@@ -1,10 +1,7 @@
 package com.a5ur4.goldengains.entity;
 
-import java.time.LocalDate;
 import java.util.List;
 import jakarta.persistence.*;
-
-
 
 @Entity
 @Table(name = "users")
@@ -12,9 +9,6 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
-    private String name;
 
     @Column(nullable = false, unique = true)
     private String username;
@@ -25,20 +19,14 @@ public class Users {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private LocalDate birthday;
+    @Column(nullable = true)
+    private String role;
 
     @Column(nullable = true)
-    private String phone;
+    private String profile_pic;
 
-    @Column(nullable = false)
-    private double weight;
-
-    @Column(nullable = false)
-    private double height;
-
-    @Column(nullable = false)
-    private String country;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private PersonalData personalData;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Lifts> lifts;
@@ -51,28 +39,24 @@ public class Users {
 
     public Users() {}
 
-    public Users(String name, String username, String email, String password, LocalDate birthday, String phone, double weight, double height, String country) {
-        this.name = name;
+    public Users(String username, String email, String password, String role, String profile_pic, PersonalData personalData, List<Lifts> lifts, List<Posts> posts, Music music) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.birthday = birthday;
-        this.phone = phone;
-        this.weight = weight;
-        this.height = height;
-        this.country = country;
+        this.role = role;
+        this.profile_pic = profile_pic;
+        this.personalData = personalData;
+        this.lifts = lifts;
+        this.posts = posts;
+        this.music = music;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -99,44 +83,28 @@ public class Users {
         this.password = password;
     }
 
-    public LocalDate getBirthday() {
-        return birthday;
+    public String getRole() {
+        return role;
     }
 
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getProfile_pic() {
+        return profile_pic;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setProfile_pic(String profile_pic) {
+        this.profile_pic = profile_pic;
     }
 
-    public double getWeight() {
-        return weight;
+    public PersonalData getPersonalData() {
+        return personalData;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    public double getHeight() {
-        return height;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
+    public void setPersonalData(PersonalData personalData) {
+        this.personalData = personalData;
     }
 
     public List<Lifts> getLifts() {
