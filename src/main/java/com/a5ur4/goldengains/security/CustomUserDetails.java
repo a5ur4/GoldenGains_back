@@ -15,7 +15,6 @@ public class CustomUserDetails implements UserDetailsService {
     
     private final UserRepository repository;
 
-    // Injeta UserRepository corretamente pelo construtor
     public CustomUserDetails(UserRepository repository) {
         this.repository = repository;
     }

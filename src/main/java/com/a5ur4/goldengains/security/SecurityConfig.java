@@ -29,7 +29,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/login", "/auth/register").permitAll() // Acesso público
                 .requestMatchers("/auth/register-admin").hasAuthority("ADMIN") // Apenas ADMIN
-                .requestMatchers("/user/**").hasAuthority("ADMIN") // Apenas ADMIN
+                .requestMatchers("/users/**").permitAll() // Apenas ADMIN
                 .anyRequest().authenticated() // Todas as outras rotas exigem autenticação
             )
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class); // Filtro JWT

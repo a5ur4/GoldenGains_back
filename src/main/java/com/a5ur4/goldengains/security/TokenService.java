@@ -41,7 +41,7 @@ public class TokenService {
                     .verify(token)
                     .getSubject();
         } catch (JWTVerificationException exception) {
-            return null; // Retorna null em vez de lançar erro
+            return null;
         }
     }
 

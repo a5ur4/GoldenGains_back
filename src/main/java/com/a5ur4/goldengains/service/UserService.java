@@ -21,14 +21,15 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    // CREATE - Criar um novo usuário
-    public UserDTO createUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword())); // Criptografa a senha antes de salvar
-        User savedUser = userRepository.save(user);
-        return convertToUserDTO(savedUser);
+    public String postUser(User user) {
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new RuntimeException("Email already exists");
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+        return "User created successfully";
     }
 
-    // READ - Buscar todos os usuários
     public List<UserDTO> getAllUsers() {
         List<User> users = userRepository.findAll();
         return users.stream()
@@ -36,19 +37,21 @@ public class UserService {
                 .toList();
     }
 
-    // READ - Buscar um usuário por ID
     public User findById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
     }
 
-    // READ - Buscar um usuário e retornar DTO
     public Optional<UserDTO> getUser(Long id) {
         Optional<User> user = userRepository.findById(id);
         return user.map(this::convertToUserDTO);
     }
 
-    // UPDATE - Atualizar dados de um usuário
+    public Optional<UserDTO> getUserByEmail(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        return user.map(this::convertToUserDTO);
+    }
+
     public UserDTO updateUser(Long id, User updatedUser) {
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
@@ -56,7 +59,6 @@ public class UserService {
         existingUser.setUsername(updatedUser.getUsername());
         existingUser.setEmail(updatedUser.getEmail());
 
-        // Atualiza a senha somente se um novo valor for fornecido
         if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
             existingUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
         }
@@ -68,15 +70,13 @@ public class UserService {
         return convertToUserDTO(savedUser);
     }
 
-    // DELETE - Deletar usuário por ID
-    public void deleteUserById(Long id) {
-        if (!userRepository.existsById(id)) {
-            throw new RuntimeException("User not found with id: " + id);
-        }
-        userRepository.deleteById(id);
+    public Boolean deleteUser(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+        userRepository.delete(user);
+        return true;
     }
 
-    // Conversão para DTO
     private UserDTO convertToUserDTO(User user) {
         return new UserDTO(
             user.getId(),
