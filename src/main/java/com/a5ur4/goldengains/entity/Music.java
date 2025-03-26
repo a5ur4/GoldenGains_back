@@ -23,11 +23,11 @@ public class Music {
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private Users user;
+    private User user;
 
     public Music() {}
 
-    public Music(String genre, String artist, String song_name, String link, Users user) {
+    public Music(String genre, String artist, String song_name, String link, User user) {
         this.genre = genre;
         this.artist = artist;
         this.song_name = song_name;
@@ -71,11 +71,11 @@ public class Music {
         this.link = link;
     }
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

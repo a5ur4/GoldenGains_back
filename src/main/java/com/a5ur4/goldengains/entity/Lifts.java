@@ -23,11 +23,11 @@ public class Lifts {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private Users user;
+    private User user;
 
     public Lifts() {}
 
-    public Lifts(String name, double weight, int reps, int sets, Users user) {
+    public Lifts(String name, double weight, int reps, int sets, User user) {
         this.name = name;
         this.weight = weight;
         this.reps = reps;
@@ -71,11 +71,11 @@ public class Lifts {
         this.sets = sets;
     }
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

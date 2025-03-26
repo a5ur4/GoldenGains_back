@@ -31,11 +31,11 @@ public class PersonalData {
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private Users user;
+    private User user;
 
     public PersonalData() {}
 
-    public PersonalData(String name, LocalDate birthday, String phone, double weight, double height, String country, Users user) {
+    public PersonalData(String name, LocalDate birthday, String phone, double weight, double height, String country, User user) {
         this.name = name;
         this.birthday = birthday;
         this.phone = phone;
@@ -101,11 +101,11 @@ public class PersonalData {
         this.country = country;
     }
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

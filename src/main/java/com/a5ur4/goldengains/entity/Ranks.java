@@ -18,11 +18,11 @@ public class Ranks {
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private Users user;
+    private User user;
 
     public Ranks() {}
 
-    public Ranks(Integer position, Lifts lift, Users user) {
+    public Ranks(Integer position, Lifts lift, User user) {
         this.position = position;
         this.lift = lift;
         this.user = user;
@@ -48,11 +48,11 @@ public class Ranks {
         this.lift = lift;
     }
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

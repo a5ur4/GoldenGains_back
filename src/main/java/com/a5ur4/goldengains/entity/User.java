@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "users")
-public class Users {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,7 +23,7 @@ public class Users {
     private String role;
 
     @Column(nullable = true)
-    private String profile_pic;
+    private String profilePic;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private PersonalData personalData;
@@ -37,14 +37,14 @@ public class Users {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Music music;
 
-    public Users() {}
+    public User() {}
 
-    public Users(String username, String email, String password, String role, String profile_pic, PersonalData personalData, List<Lifts> lifts, List<Posts> posts, Music music) {
+    public User(String username, String email, String password, String role, String profilePic, PersonalData personalData, List<Lifts> lifts, List<Posts> posts, Music music) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
-        this.profile_pic = profile_pic;
+        this.profilePic = profilePic;
         this.personalData = personalData;
         this.lifts = lifts;
         this.posts = posts;
@@ -91,12 +91,12 @@ public class Users {
         this.role = role;
     }
 
-    public String getProfile_pic() {
-        return profile_pic;
+    public String getProfilePic() {
+        return profilePic;
     }
 
-    public void setProfile_pic(String profile_pic) {
-        this.profile_pic = profile_pic;
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
     }
 
     public PersonalData getPersonalData() {

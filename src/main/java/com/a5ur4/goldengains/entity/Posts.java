@@ -31,7 +31,7 @@ public class Posts {
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private Users user;
+    private User user;
 
     @OneToOne
     @JoinColumn(name = "category_id", nullable = false)
@@ -39,7 +39,7 @@ public class Posts {
 
     public Posts() {}
 
-    public Posts(String title, String content, String image, Date created_at, Integer upvotes, Integer downvotes, Users user, Categories category) {
+    public Posts(String title, String content, String image, Date created_at, Integer upvotes, Integer downvotes, User user, Categories category) {
         this.title = title;
         this.content = content;
         this.image = image;
@@ -102,11 +102,11 @@ public class Posts {
         this.downvotes = downvotes;
     }
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

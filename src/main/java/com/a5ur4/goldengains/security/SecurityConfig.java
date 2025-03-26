@@ -23,27 +23,27 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // Disable CSRF for stateless APIs
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless session management
-            .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/auth/login", "/auth/register").permitAll() // Public endpoints
-                .requestMatchers("/auth/register-admin").hasRole("ADMIN") // Admin-only endpoint
-                .requestMatchers("/user").hasRole("ADMIN") // Admin-only endpoint
-                .requestMatchers("/personalData/**").hasRole("ADMIN") // Admin-only endpoints
-                .anyRequest().authenticated() // All other endpoints require authentication
+            .cors(cors -> cors.configure(http)) // Permite CORS
+            .csrf(csrf -> csrf.disable()) // Desativa CSRF para APIs REST
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless API
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/auth/login", "/auth/register").permitAll() // Acesso público
+                .requestMatchers("/auth/register-admin").hasAuthority("ADMIN") // Apenas ADMIN
+                .requestMatchers("/user/**").hasAuthority("ADMIN") // Apenas ADMIN
+                .anyRequest().authenticated() // Todas as outras rotas exigem autenticação
             )
-            .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class); // Add custom security filter
+            .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class); // Filtro JWT
 
         return http.build();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Use BCrypt for password encoding
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager(); // Provide AuthenticationManager bean
+        return authenticationConfiguration.getAuthenticationManager();
     }
 }
