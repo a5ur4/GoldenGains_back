@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,16 +54,6 @@ public class UserController {
             UserDTO user = this.userService.getUserByEmail(email)
                     .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
             return ResponseEntity.ok(user);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(e.getMessage());
-        }
-    }
-
-    @PostMapping("/register")
-    public ResponseEntity<?> createUser(@Valid @RequestBody User user) {
-        try {
-            String savedUser = this.userService.postUser(user);
-            return ResponseEntity.ok(savedUser);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(e.getMessage());
         }

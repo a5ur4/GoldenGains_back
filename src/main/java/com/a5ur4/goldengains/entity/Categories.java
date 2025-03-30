@@ -18,7 +18,7 @@ public class Categories {
     private String description;
 
     @OneToMany
-    @JoinColumn(name = "post_id", nullable = false)
+    @JoinColumn(name = "post_id")
     private List<Posts> posts;
 
     public Categories() {}

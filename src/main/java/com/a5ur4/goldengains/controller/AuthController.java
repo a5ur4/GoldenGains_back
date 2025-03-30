@@ -31,12 +31,12 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequest) {
         try {
-            var user = userRepository.findByEmail(loginRequest.email());
+            var user = userRepository.findByUsername(loginRequest.username());
             if (user.isPresent() && passwordEncoder.matches(loginRequest.password(), user.get().getPassword())) {
                 String token = tokenService.generateToken(user.get());
                 return ResponseEntity.ok(token);
             } else {
-                return ResponseEntity.status(401).body("Invalid email or password");
+                return ResponseEntity.status(401).body("Invalid username or password");
             }
         } catch (Exception e) {
             return ResponseEntity.status(500).body(e.getMessage());
@@ -46,8 +46,8 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequestDTO registerRequest) {
         try {
-            if (userRepository.existsByEmail(registerRequest.email())) {
-                return ResponseEntity.status(400).body("Email already in use");
+            if (userRepository.existsByEmail(registerRequest.email()) || userRepository.existsByUsername(registerRequest.username())) {
+                return ResponseEntity.status(400).body("Email or username already exists");
             }
             var user = new User();
             user.setUsername(registerRequest.username());

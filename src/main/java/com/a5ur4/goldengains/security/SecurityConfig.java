@@ -27,8 +27,9 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable()) // Desativa CSRF para APIs REST
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless API
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**").permitAll() // Acesso público
-                .requestMatchers("/users/**").permitAll() // Apenas ADMIN
+                .requestMatchers("/auth/login", "/auth/register").permitAll() // Acesso público
+                .requestMatchers("/users/**").permitAll() 
+                .requestMatchers("/categories/**").permitAll() 
                 .anyRequest().authenticated() // Todas as outras rotas exigem autenticação
             )
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class); // Filtro JWT
