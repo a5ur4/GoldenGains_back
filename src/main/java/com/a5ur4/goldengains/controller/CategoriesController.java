@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/categories")
@@ -37,8 +36,8 @@ public class CategoriesController {
         }
     }
 
-    @GetMapping("/get_by_id")
-    public ResponseEntity<?> getCategoryById(@RequestParam Long id) {
+    @GetMapping("/get_by_id/{id}")
+    public ResponseEntity<?> getCategoryById(@PathVariable Long id) {
         try {
             Categories category = categoriesService.findById(id);
             return ResponseEntity.ok(category);

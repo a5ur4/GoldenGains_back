@@ -1,10 +1,12 @@
-package com.a5ur4.goldengains.dtos;
+package com.a5ur4.goldengains.dtos.News;
+
+import java.util.List;
 
 public record NewsDTO(
     Long id,
     String title,
     String content,
     String link,
-    Long category
+    List<Long> categories
 ) {
 }

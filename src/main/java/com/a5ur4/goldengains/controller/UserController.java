@@ -37,7 +37,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/get_by_id")
+    @GetMapping("/get_by_id/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id) {
         try {
             UserDTO user = this.userService.getUser(id)
