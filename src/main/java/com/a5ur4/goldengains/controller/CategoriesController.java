@@ -2,7 +2,9 @@ package com.a5ur4.goldengains.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.a5ur4.goldengains.dtos.CategoriesDTO;
+import com.a5ur4.goldengains.dtos.Categories.CategoriesDTO;
+import com.a5ur4.goldengains.dtos.Categories.CreateCategoriesDTO;
+import com.a5ur4.goldengains.dtos.Categories.UpdateCategoriesDTO;
 import com.a5ur4.goldengains.entity.Categories;
 import com.a5ur4.goldengains.service.CategoriesService;
 
@@ -46,12 +48,13 @@ public class CategoriesController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createCategory(@RequestBody Categories category) {
+    public ResponseEntity<?> createCategory(@RequestBody CreateCategoriesDTO categoryDTO) {
         try {
-            if (category.getDescription() == null || category.getDescription().isBlank()) {
-                return ResponseEntity.badRequest().body("Description cannot be null or empty");
+            if (categoryDTO.name() == null || categoryDTO.name().isBlank() ||
+                    categoryDTO.description() == null || categoryDTO.description().isBlank()) {
+                return ResponseEntity.badRequest().body("Name and description cannot be null or empty");
             }
-            String response = categoriesService.postCategory(category.getName(), category.getDescription());
+            String response = categoriesService.postCategory(categoryDTO);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(e.getMessage());
@@ -59,13 +62,10 @@ public class CategoriesController {
     }
 
     @PutMapping("/update/{categoryId}")
-    public ResponseEntity<?> updateCategory(@PathVariable Long categoryId, @RequestBody Categories updatedCategory) {
+    public ResponseEntity<?> updateCategory(@PathVariable Long categoryId, @RequestBody UpdateCategoriesDTO categoryDTO) {
         try {
-            if (updatedCategory.getDescription() == null || updatedCategory.getDescription().isBlank()) {
-                return ResponseEntity.badRequest().body("Description cannot be null or empty");
-            }
-            CategoriesDTO categoryDTO = categoriesService.updateCategory(categoryId, updatedCategory);
-            return ResponseEntity.ok(categoryDTO);
+            CategoriesDTO updatedCategory = categoriesService.updateCategory(categoryId, categoryDTO);
+            return ResponseEntity.ok(updatedCategory);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(e.getMessage());
         }

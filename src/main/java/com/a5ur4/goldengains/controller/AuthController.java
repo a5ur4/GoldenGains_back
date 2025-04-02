@@ -4,8 +4,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.a5ur4.goldengains.dtos.LoginRequestDTO;
-import com.a5ur4.goldengains.dtos.RegisterRequestDTO;
+import com.a5ur4.goldengains.dtos.User.LoginRequestDTO;
+import com.a5ur4.goldengains.dtos.User.RegisterRequestDTO;
 import com.a5ur4.goldengains.entity.User;
 import com.a5ur4.goldengains.repository.UserRepository;
 import com.a5ur4.goldengains.security.TokenService;

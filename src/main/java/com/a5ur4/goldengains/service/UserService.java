@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.a5ur4.goldengains.dtos.UserDTO;
+import com.a5ur4.goldengains.dtos.User.UserDTO;
 import com.a5ur4.goldengains.entity.User;
 import com.a5ur4.goldengains.repository.UserRepository;
 

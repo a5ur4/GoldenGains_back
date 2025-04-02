@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import com.a5ur4.goldengains.dtos.UserDTO;
+import com.a5ur4.goldengains.dtos.User.UserDTO;
 import com.a5ur4.goldengains.entity.User;
 import com.a5ur4.goldengains.service.UserService;
 

@@ -4,26 +4,32 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.a5ur4.goldengains.dtos.CategoriesDTO;
+import com.a5ur4.goldengains.dtos.Categories.CategoriesDTO;
+import com.a5ur4.goldengains.dtos.Categories.CreateCategoriesDTO;
+import com.a5ur4.goldengains.dtos.Categories.UpdateCategoriesDTO;
 import com.a5ur4.goldengains.entity.Categories;
 import com.a5ur4.goldengains.repository.CategoriesRepository;
+import com.a5ur4.goldengains.repository.PostsRepository;
+import com.a5ur4.goldengains.entity.Posts;
 
 @Service
 public class CategoriesService {
     
+    private final PostsRepository postsRepository;
     private final CategoriesRepository categoriesRepository;
 
-    public CategoriesService(CategoriesRepository categoriesRepository) {
+    public CategoriesService(CategoriesRepository categoriesRepository, PostsRepository postsRepository) {
         this.categoriesRepository = categoriesRepository;
+        this.postsRepository = postsRepository;
     }
 
-    public String postCategory(String name, String description) {
-        if (categoriesRepository.findByName(name).isPresent()) {
+    public String postCategory(CreateCategoriesDTO categoriesDTO) {
+        if (categoriesRepository.findByName(categoriesDTO.name()).isPresent()) {
             return "Category already exists";
         } else {
             Categories newCategory = new Categories();
-            newCategory.setName(name);
-            newCategory.setDescription(description);
+            newCategory.setName(categoriesDTO.name());
+            newCategory.setDescription(categoriesDTO.description());
             categoriesRepository.save(newCategory);
             return "Category created successfully";
         }
@@ -41,15 +47,24 @@ public class CategoriesService {
                 .orElseThrow(() -> new RuntimeException("Category not found with id: " + id));
     }
 
-    public CategoriesDTO updateCategory(Long id, Categories updatedCategory) {
+    public CategoriesDTO updateCategory(Long id, UpdateCategoriesDTO updateCategoriesDTO) {
         Categories existingCategory = categoriesRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category not found with id: " + id));
-    
-        existingCategory.setName(updatedCategory.getName());
-        existingCategory.setDescription(updatedCategory.getDescription()); // Update the description
+        
+        if (updateCategoriesDTO.name() != null) {
+            existingCategory.setName(updateCategoriesDTO.name());
+        }
+        if (updateCategoriesDTO.description() != null) {
+            existingCategory.setDescription(updateCategoriesDTO.description());
+        }
+        if (updateCategoriesDTO.posts() != null) {
+            List<Posts> posts = postsRepository.findAllById(updateCategoriesDTO.posts());
+            existingCategory.setPosts(posts);
+        }
         categoriesRepository.save(existingCategory);
         return convertToCategoriesDTO(existingCategory);
     }
+
 
     public void deleteCategory(Long id) {
         Categories existingCategory = categoriesRepository.findById(id)
@@ -62,9 +77,7 @@ public class CategoriesService {
             category.getId(),
             category.getName(),
             category.getDescription(),
-            category.getPost().stream()
-                .map(post -> post.getId())
-                .toList()
+            category.getPosts().stream().map(Posts::getId).toList()
         );
     }
 }
