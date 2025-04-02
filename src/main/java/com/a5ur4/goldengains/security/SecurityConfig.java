@@ -30,6 +30,7 @@ public class SecurityConfig {
                 .requestMatchers("/auth/login", "/auth/register").permitAll() // Acesso público
                 .requestMatchers("/users/**").permitAll() 
                 .requestMatchers("/categories/**").permitAll() 
+                .requestMatchers("/posts/**").permitAll()
                 .anyRequest().authenticated() // Todas as outras rotas exigem autenticação
             )
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class); // Filtro JWT

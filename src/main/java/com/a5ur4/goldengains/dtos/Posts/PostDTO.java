@@ -1,13 +1,13 @@
-package com.a5ur4.goldengains.dtos;
+package com.a5ur4.goldengains.dtos.Posts;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
-public record PostsDTO(
+public record PostDTO(
     Long id,
     String title,
     String content,
     String image,
-    Date created_at,
+    LocalDateTime createdAt,
     Integer upvotes,
     Integer downvotes,
     Long user,
