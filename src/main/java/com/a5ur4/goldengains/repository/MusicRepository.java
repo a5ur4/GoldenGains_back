@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface MusicRepository extends JpaRepository<Music, Long> {
     Optional<Music> findById(Long id);
     Optional<Music> findByGenre(String genre);
+    Optional<Music> findByArtist(String artist);
+    Optional<Music> findByTitle(String title);
 
     Boolean existsByGenre(String genre);
 }

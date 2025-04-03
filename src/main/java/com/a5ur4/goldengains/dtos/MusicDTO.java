@@ -4,7 +4,7 @@ public record MusicDTO(
     Long id,
     String genre,
     String artist,
-    String song_name,
+    String title,
     String link,
     Long user
 ) {
