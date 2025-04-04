@@ -1,9 +1,15 @@
 package com.a5ur4.goldengains.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "lifts")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Lifts {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -24,58 +30,4 @@ public class Lifts {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
-    public Lifts() {}
-
-    public Lifts(String name, double weight, int reps, int sets, User user) {
-        this.name = name;
-        this.weight = weight;
-        this.reps = reps;
-        this.sets = sets;
-        this.user = user;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    public int getReps() {
-        return reps;
-    }
-
-    public void setReps(int reps) {
-        this.reps = reps;
-    }
-
-    public int getSets() {
-        return sets;
-    }
-
-    public void setSets(int sets) {
-        this.sets = sets;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

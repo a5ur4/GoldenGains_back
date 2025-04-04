@@ -28,11 +28,14 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless API
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/login", "/auth/register").permitAll() // Acesso público
-                .requestMatchers("/users/**").permitAll() 
+                .requestMatchers("/users/**").permitAll()
+                .requestMatchers("/personal_data/**").permitAll() 
                 .requestMatchers("/categories/**").permitAll() 
                 .requestMatchers("/posts/**").permitAll()
                 .requestMatchers("/news/**").permitAll()
                 .requestMatchers("/music/**").permitAll()
+                .requestMatchers("/lifts/**").permitAll()
+                .requestMatchers("/rank/**").permitAll()
                 .anyRequest().authenticated() // Todas as outras rotas exigem autenticação
             )
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class); // Filtro JWT
