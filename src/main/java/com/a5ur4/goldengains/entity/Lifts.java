@@ -1,5 +1,7 @@
 package com.a5ur4.goldengains.entity;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,13 +21,13 @@ public class Lifts {
     private String name;
 
     @Column(nullable = false)
-    private double weight;
+    private BigDecimal weight;
 
     @Column(nullable = false)
-    private int reps;
+    private Integer reps;
 
     @Column(nullable = false)
-    private int sets;
+    private Integer sets;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

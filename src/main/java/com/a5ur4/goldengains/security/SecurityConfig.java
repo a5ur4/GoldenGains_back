@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .requestMatchers("/news/**").permitAll()
                 .requestMatchers("/music/**").permitAll()
                 .requestMatchers("/lifts/**").permitAll()
-                .requestMatchers("/rank/**").permitAll()
+                .requestMatchers("/ranks/**").permitAll()
                 .anyRequest().authenticated() // Todas as outras rotas exigem autenticação
             )
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class); // Filtro JWT

@@ -18,11 +18,11 @@ public class Ranks {
     @Column(nullable = false)
     private Integer position;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "lift_id", nullable = false)
     private Lifts lift;
-
-    @OneToOne
+    
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 }

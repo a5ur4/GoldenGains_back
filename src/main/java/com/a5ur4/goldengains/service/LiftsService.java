@@ -22,8 +22,8 @@ public class LiftsService {
     }
 
     public String postLifts(LiftsDTO liftsDTO) {
-        if (liftsRepository.findByName(liftsDTO.name()).isPresent()) {
-            return "Lifts already exists";
+        if (liftsRepository.findByUserIdAndName(liftsDTO.user(), liftsDTO.name()).isPresent()) {
+            return "Lifts already exist for this user";        
         } else {
             Lifts newLifts = new Lifts();
             newLifts.setName(liftsDTO.name());
