@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.a5ur4.goldengains.dtos.User.RoleUpdateDTO;
 import com.a5ur4.goldengains.dtos.User.UserDTO;
 import com.a5ur4.goldengains.entity.User;
 import com.a5ur4.goldengains.repository.UserRepository;
@@ -52,23 +53,34 @@ public class UserService {
         return user.map(this::convertToUserDTO);
     }
 
-    public UserDTO updateUser(Long id, User updatedUser) {
-        User existingUser = userRepository.findById(id)
+    public UserDTO updateUser(Long id, UserDTO userDTO) {
+        User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
-
-        existingUser.setUsername(updatedUser.getUsername());
-        existingUser.setEmail(updatedUser.getEmail());
-
-        if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
-            existingUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+        
+        if (userDTO.username() != null) {
+            user.setUsername(userDTO.username());
         }
-
-        existingUser.setRole(updatedUser.getRole());
-        existingUser.setProfilePic(updatedUser.getProfilePic());
-
-        User savedUser = userRepository.save(existingUser);
-        return convertToUserDTO(savedUser);
+        if (userDTO.email() != null) {
+            user.setEmail(userDTO.email());
+        }
+        user.setRole(userDTO.role() != null ? userDTO.role() : "USER");
+        userRepository.save(user);
+        return convertToUserDTO(user);
     }
+
+    public UserDTO updaterUserRole(Long id, RoleUpdateDTO roleUpdateDTO) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+    
+        String role = roleUpdateDTO.role();
+        if (!role.startsWith("ROLE_")) {
+            role = "ROLE_" + role;
+        }
+    
+        user.setRole(role);
+        userRepository.save(user);
+        return convertToUserDTO(user);
+    }    
 
     public Boolean deleteUser(Long id) {
         User user = userRepository.findById(id)
@@ -81,7 +93,8 @@ public class UserService {
         return new UserDTO(
             user.getId(),
             user.getUsername(),
-            user.getEmail()
+            user.getEmail(),
+            user.getRole()
         );
     }
 }

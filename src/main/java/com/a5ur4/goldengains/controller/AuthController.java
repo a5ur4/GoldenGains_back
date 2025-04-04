@@ -53,6 +53,7 @@ public class AuthController {
             user.setUsername(registerRequest.username());
             user.setEmail(registerRequest.email());
             user.setPassword(passwordEncoder.encode(registerRequest.password()));
+            user.setRole(formatRole("USER"));
             userRepository.save(user);
             return ResponseEntity.status(201).body("User registered successfully");
         } catch (Exception e) {
@@ -60,4 +61,8 @@ public class AuthController {
         }
     }
 
+    private String formatRole(String role) {
+        return role.startsWith("ROLE_") ? role : "ROLE_" + role;
+    }
+    
 }

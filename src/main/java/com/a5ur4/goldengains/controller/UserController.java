@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import com.a5ur4.goldengains.dtos.User.RoleUpdateDTO;
 import com.a5ur4.goldengains.dtos.User.UserDTO;
-import com.a5ur4.goldengains.entity.User;
 import com.a5ur4.goldengains.service.UserService;
 
 @RestController
@@ -60,14 +60,24 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable Long id, @Valid @RequestBody User updatedUser) {
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody @Valid UserDTO userDTO) {
         try {
-            UserDTO user = this.userService.updateUser(id, updatedUser);
-            return ResponseEntity.ok(user);
+            UserDTO updatedUser = this.userService.updateUser(id, userDTO);
+            return ResponseEntity.ok(updatedUser);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(e.getMessage());
         }
     }
+
+    @PutMapping("/update_role/{id}")
+    public ResponseEntity<?> updateUserRole(@PathVariable Long id, @RequestBody @Valid RoleUpdateDTO roleUpdateDTO) {
+        try {
+            UserDTO updatedUser = this.userService.updaterUserRole(id, roleUpdateDTO);
+            return ResponseEntity.ok(updatedUser);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
+    }    
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
