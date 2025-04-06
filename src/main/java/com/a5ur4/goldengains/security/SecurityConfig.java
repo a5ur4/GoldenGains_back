@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .requestMatchers("/users/**").permitAll()
                 .requestMatchers("/users/update_role/**").hasRole("ADMIN")
             
-                .requestMatchers("/personal_data/**").permitAll() 
+                .requestMatchers("/personal-data/**").permitAll() 
                 .requestMatchers("/categories/**").permitAll() 
                 .requestMatchers("/posts/**").permitAll()
                 .requestMatchers("/news/**").permitAll()
