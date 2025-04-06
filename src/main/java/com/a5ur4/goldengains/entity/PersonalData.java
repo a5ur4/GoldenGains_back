@@ -1,6 +1,6 @@
 package com.a5ur4.goldengains.entity;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,16 +21,16 @@ public class PersonalData {
     private String name;
 
     @Column(nullable = false)
-    private LocalDate birthday;
+    private Date birthday;
 
     @Column(nullable = true)
     private String phone;
 
     @Column(nullable = false)
-    private double weight;
+    private Double weight;
 
     @Column(nullable = false)
-    private double height;
+    private Double height;
 
     @Column(nullable = false)
     private String country;

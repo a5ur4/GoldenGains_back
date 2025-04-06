@@ -1,12 +1,14 @@
 package com.a5ur4.goldengains.dtos;
 
+import java.sql.Date;
+
 public record PersonalDataDTO(
     Long id,
     String name,
-    String birthday,
+    Date birthday,
     String phone,
-    double weight,
-    double height,
+    Double weight,
+    Double height,
     String country,
     Long user
 ) {
