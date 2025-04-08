@@ -62,6 +62,20 @@ public class PostsService {
         return convertToPostDTO(post);
     }
 
+    public List<PostDTO> findByUserId(Long userId) {
+        return postsRepository.findByUserId(userId)
+                .stream()
+                .map(this::convertToPostDTO)
+                .toList();
+    }
+
+    public List<PostDTO> findByCategoryId(Long categoryId) {
+        return postsRepository.findByCategoryId(categoryId)
+                .stream()
+                .map(this::convertToPostDTO)
+                .toList();
+    }
+
     public PostDTO updatePost(Long id, UpdatePostDTO updatedPost) {
         Posts existingPost = postsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Post not found with ID: " + id));

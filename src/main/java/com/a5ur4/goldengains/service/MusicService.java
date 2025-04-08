@@ -61,6 +61,13 @@ public class MusicService {
                 .toList();
     }
 
+    public List<MusicDTO> getMusicByUserId(Long userId) {
+        return musicRepository.findByUserId(userId)
+                .stream()
+                .map(this::convertToMusicDTO)
+                .toList();
+    }
+
     public MusicDTO findById(Long id) {
         Music music = musicRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Music not found with ID: " + id));

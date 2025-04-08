@@ -11,6 +11,7 @@ public interface MusicRepository extends JpaRepository<Music, Long> {
     Optional<Music> findByGenre(String genre);
     Optional<Music> findByArtist(String artist);
     Optional<Music> findByTitle(String title);
+    Optional<Music> findByUserId(Long userId);
 
     Boolean existsByGenre(String genre);
 }

@@ -36,6 +36,24 @@ public class PostsController {
         }
     }
 
+    @GetMapping("/get_by_user/{userId}")
+    public ResponseEntity<?> getPostsByUserId(@PathVariable Long userId) {
+        try {
+            return ResponseEntity.ok(postsService.findByUserId(userId));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/get_by_category/{categoryId}")
+    public ResponseEntity<?> getPostsByCategoryId(@PathVariable Long categoryId) {
+        try {
+            return ResponseEntity.ok(postsService.findByCategoryId(categoryId));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
+    }
+
     @PostMapping("/create")
     public ResponseEntity<?> createPost(@RequestBody CreatePostDTO postDTO) {
         try {

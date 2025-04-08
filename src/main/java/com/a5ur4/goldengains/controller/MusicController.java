@@ -41,6 +41,15 @@ public class MusicController {
         }
     }
 
+    @GetMapping("/get_by_user/{userId}")
+    public ResponseEntity<?> getMusicByUserId(@PathVariable Long userId) {
+        try {
+            return ResponseEntity.ok(musicService.getMusicByUserId(userId));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
+    }
+
     @PostMapping("/create")
     public ResponseEntity<?> createMusic(@RequestBody MusicDTO musicDTO) {
         try {

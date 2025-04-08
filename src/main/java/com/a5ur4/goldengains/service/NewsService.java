@@ -59,6 +59,13 @@ public class NewsService {
                 .collect(Collectors.toList());
     }
 
+    public List<NewsDTO> getNewsByCategory(Long categoryId) {
+        return newsRepository.findByCategoryId(categoryId)
+                .stream()
+                .map(this::convertToNewsDTO)
+                .collect(Collectors.toList());
+    }
+
     public NewsDTO updateNewsDTO(Long id, NewsDTO newsDTO) {
         News existingNews = newsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("News not found with id: " + id));

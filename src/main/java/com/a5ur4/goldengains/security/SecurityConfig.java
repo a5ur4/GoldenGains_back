@@ -43,23 +43,23 @@ public class SecurityConfig {
                 .requestMatchers("/categories/create", "/categories/update/**", "/categories/delete/**").hasAnyRole("USER", "ADMIN")
                 
                 // Permissões de acesso posts
-                .requestMatchers("/posts/get_all", "/posts/get_by_id/**").permitAll()
+                .requestMatchers("/posts/get_all", "/posts/get_by_id/**", "/posts/get_by_user/**", "/posts/get_by_category/**").permitAll()
                 .requestMatchers("/posts/create", "/posts/update/**", "/posts/delete/**").hasAnyRole("USER", "ADMIN")
 
                 // Permissões de acesso news
-                .requestMatchers("/news/get_all", "/news/get_by_id/**").permitAll()
+                .requestMatchers("/news/get_all", "/news/get_by_id/**", "/news/get_by_category/**").permitAll()
                 .requestMatchers("/news/create", "/news/update/**", "/news/delete/**").hasAnyRole("USER", "ADMIN")
 
                 // Permissões de acesso music
-                .requestMatchers("/music/get_all", "/music/get_by_id/**").permitAll()
+                .requestMatchers("/music/get_all", "/music/get_by_id/**", "/music/get_by_user/**").permitAll()
                 .requestMatchers("/music/create", "/music/update/**", "/music/delete/**").hasAnyRole("USER", "ADMIN")
 
                 // Permissões de acesso lifts
-                .requestMatchers("/lifts/get_all", "/lifts/get_by_id/**").permitAll()
+                .requestMatchers("/lifts/get_all", "/lifts/get_by_id/**", "/lifts/get_by_user/**").permitAll()
                 .requestMatchers("/lifts/create", "/lifts/update/**", "/lifts/delete/**").hasAnyRole("USER", "ADMIN")
 
                 // Permissões de acesso ranks
-                .requestMatchers("/ranks/get_all", "/ranks/get_by_id/**").permitAll()
+                .requestMatchers("/ranks/get_all", "/ranks/get_by_id/**", "/ranks/get_by_user/**", "/ranks/get_by_lift/**").permitAll()
                 .requestMatchers("/ranks/create", "/ranks/update/**", "/ranks/delete/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
             )

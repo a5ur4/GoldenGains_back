@@ -41,6 +41,15 @@ public class NewsController {
         }
     }
 
+    @GetMapping("/get_by_category/{categoryId}")
+    public ResponseEntity<?> getNewsByCategoryId(@PathVariable Long categoryId) {
+        try {
+            return ResponseEntity.ok(newsService.getNewsByCategory(categoryId));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
+    }
+
     @PostMapping("/create")
     public ResponseEntity<?> createNews(@RequestBody NewsDTO newsDTO) {
         try {

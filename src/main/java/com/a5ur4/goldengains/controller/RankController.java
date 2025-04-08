@@ -41,10 +41,19 @@ public class RankController {
         }
     }
 
-    @GetMapping("/get_by_user_id/{userId}")
+    @GetMapping("/get_by_user/{userId}")
     public ResponseEntity<?> getRanksByUserId(@PathVariable Long userId) {
         try {
             return ResponseEntity.ok(rankService.getRanksByUserId(userId));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/get_by_lift/{rankId}")
+    public ResponseEntity<?> getRankById(@PathVariable Long rankId) {
+        try {
+            return ResponseEntity.ok(rankService.getRanksByLiftId(rankId));
         } catch (Exception e) {
             return ResponseEntity.status(500).body(e.getMessage());
         }
