@@ -36,7 +36,8 @@ public class SecurityConfig {
                 .requestMatchers("/users/update/**", "/users/update_role/**", "/users/delete/**").hasRole("ADMIN")
 
                 // Permissões de acesso personal data
-                .requestMatchers("/personal-data/**").permitAll() 
+                .requestMatchers("/personal-data/get_all", "/personal-data/get_by_id/**", "/personal-data/get_by_user/**").permitAll()
+                .requestMatchers("/personal-data/create", "/personal-data/update/**", "/personal-data/delete/**").hasAnyRole("USER", "ADMIN")
 
                 // Permissões de acesso categoria
                 .requestMatchers("/categories/get_all", "/categories/get_by_id/**").permitAll()
