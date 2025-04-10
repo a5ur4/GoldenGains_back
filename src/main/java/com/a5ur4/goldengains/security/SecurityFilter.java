@@ -12,20 +12,14 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
-
-import com.a5ur4.goldengains.repository.UserRepository;
-import com.a5ur4.goldengains.entity.User;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
 
     private final TokenService tokenService;
-    private final UserRepository userRepository;
 
-    public SecurityFilter(TokenService tokenService, UserRepository userRepository) {
+    public SecurityFilter(TokenService tokenService) {
         this.tokenService = tokenService;
-        this.userRepository = userRepository;
     }
 
     @Override
@@ -36,16 +30,15 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         if (token != null) {
             String email = tokenService.validateToken(token);
-            Optional<User> userOptional = userRepository.findByEmail(email);
-
-            if (userOptional.isPresent()) {
-                User user = userOptional.get();
-                var authorities = List.of(new SimpleGrantedAuthority(user.getRole()));
-
-                var authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
+            String role = tokenService.getRoleFromToken(token);
+        
+            if (email != null) {
+                var authorities = List.of(new SimpleGrantedAuthority(role));
+                var authentication = new UsernamePasswordAuthenticationToken(email, null, authorities);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
+        
 
         filterChain.doFilter(request, response);
     }
